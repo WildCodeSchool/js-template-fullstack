@@ -1,8 +1,5 @@
 .yarn
 node_modules
-coverage
-dist
-.env
 .DS_Store
 .idea
 .vscode

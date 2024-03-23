@@ -1,0 +1,44 @@
+version: "3.4"
+
+services:
+  web:
+    build: .
+    volumes:
+      - .:/var/www
+      - ./docker-entry.sh:/etc/entrypoint.sh
+    entrypoint: [ "sh", "/etc/entrypoint.sh" ]
+    ports:
+      - "3310:3310"
+    environment:
+      APP_PORT: 3310
+      APP_SECRET: 123456789
+      DB_HOST: database
+      DB_PORT: 3306
+      DB_USER: user
+      DB_PASSWORD: password
+      DB_NAME: js_template_fullstack
+      VITE_BACKEND_URL: ""
+    depends_on:
+      database:
+        condition: service_healthy
+
+  database:
+    image: mysql/mysql-server:8.0
+    healthcheck:
+      test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost", "-uuser", "-ppassword" ] # Command to check health.
+      interval: 5s # Interval between health checks.
+      timeout: 5s # Timeout for each health checking.
+      retries: 20 # Hou many times retries.
+      start_period: 10s
+    volumes:
+      - ./database-setup.sh:/docker-entrypoint-initdb.d/setup.sh
+    #      - db-data:/var/lib/mysql
+    environment:
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+      # Password for root access
+      MYSQL_ROOT_PASSWORD: rootpassword
+    ports:
+      - target: 3306
+        published: 3306
+        protocol: tcp

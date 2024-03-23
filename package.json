@@ -1,35 +1,29 @@
 {
-  "name": "template-fullstack",
-  "version": "4.2.0",
-  "description": "project template for the React-Express-MySQL cursus in Wild Code School",
-  "homepage": "https://github.com/wildcodeschool/js-template-fullstack#readme",
+  "name": "create-harmonia",
+  "version": "5.0.7",
+  "type": "module",
+  "description": "Our pedagogical framework for the React-Express-MySQL cursus in Wild Code School",
+  "homepage": "https://github.com/wildcodeschool/create-harmonia#readme",
   "bugs": {
-    "url": "https://github.com/wildcodeschool/js-template-fullstack/issues"
+    "url": "https://github.com/wildcodeschool/create-harmonia/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/wildcodeschool/js-template-fullstack.git"
+    "url": "git+https://github.com/wildcodeschool/create-harmonia.git"
   },
-  "scripts": {
-    "postinstall": "cross-env-shell \"husky install && cd ./frontend && npm install && cd ../backend && npm install\"",
-    "db:migrate": "cd ./backend && node migrate.js",
-    "db:seed": "cd ./backend && node seed.js",
-    "dev": "cross-env-shell 'concurrently -c green,yellow -t \"HH:mm:ss\" -p \"{name} {time}\" \"npm:dev-*\"'",
-    "dev-front": "cross-env-shell \"cd ./frontend && npm run dev\"",
-    "dev-back": "cross-env-shell \"cd ./backend && npm run dev\"",
-    "lint": "lint-staged",
-    "prebuild": "npm install",
-    "build": "cross-env-shell \"cd ./frontend && npm run build && cd ../backend && npm run build\"",
-    "start": "cross-env-shell \"cd ./backend && npm run start\"",
-    "clean": "cross-env-shell \"rm -rf ./node_modules ./package-lock.json ./backend/node_modules ./backend/package-lock.json ./frontend/node_modules ./frontend/package-lock.json\""
+  "bin": {
+    "create-harmonia": "./bin/create-harmonia.js"
   },
-  "keywords": [],
+  "keywords": [
+    "react",
+    "express",
+    "framework"
+  ],
   "author": "Wild Code School",
   "license": "MIT",
-  "devDependencies": {
-    "concurrently": "^8.2.0",
-    "cross-env": "^7.0.3",
-    "husky": "^8.0.3",
-    "lint-staged": "^13.2.3"
+  "dependencies": {
+    "@clack/prompts": "^0.7.0",
+    "kleur": "^4.1.5",
+    "mustache": "^4.2.0"
   }
 }

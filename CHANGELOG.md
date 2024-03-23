@@ -7,7 +7,41 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-- Nothing right now. [Open an issue](https://github.com/WildCodeSchool/js-template-fullstack/issues) if you find something.
+[Open an issue](https://github.com/WildCodeSchool/create-harmonia/issues) if you have any request/feedback :)
+
+## [5.0.7] - 2024-03-23
+
+### Added
+
+- Added `commitlint` (disabled by default). Thanks to [Arthur Heurteubise](https://github.com/ArthurHtbk) for the idea.
+
+- Added`validate-branch-name` (disabled by default). Thanks to [Arthur Heurteubise](https://github.com/ArthurHtbk) for the idea.
+
+### Changed
+
+- **Breaking change:** Refactored the repository as a `create-<initializer>` package, where `initializer` is **harmonia**. The template files are moved into a new `template` folder.
+
+- **Breaking change:** Renamed `template/frontend` and `template/backend` folders as `template/client` and `template/server`.
+
+- **Breaking change:** Splitted server declaration of the routes into `router.js` subfiles in subfolders following URL paths. Thanks to [Ayoub Idrissi Ouedrhiri](https://github.com/ioayoub) for the idea.
+
+- Moved `template/server/migrate.js` and `template/server/seed.js` into a new `template/server/bin` folder. Updated server scripts accordingly.
+
+- Managed `template/client` and `template/server` subfolders through [npm workspaces](https://docs.npmjs.com/cli/v10/using-npm/workspaces).
+
+- **Breaking change:** Renamed database `Manager` classes as `Repository`, and moved them from `template/server/src/models` into `template/server/database/models`. Also moved `template/server/src/tables.js` into `template/server/database/tables.js`.
+
+- **Breaking change:** Refactored `template/server/database/tables.js` for a manual, explicit instantiation of the repositories.
+
+- **Breaking change:** Refactored seed system for the database. See `template/server/database/fixtures` for further details.
+
+- **Breaking change:** Renamed `template/server/controllers/*Controllers.js` files as `template/server/controllers/*Actions.js`. Thanks to [Matthieu Lopez](https://github.com/wildmatthieu) for the idea.
+
+### Fixed
+
+- Fixed serving of React build from the server. Thanks to [Samuel Faber](https://github.com/samuelfaberdev), [Anthony Gorski](https://github.com/GorskiAnthony) and [Julien Richard](https://github.com/jujuck).
+
+- Fixed deployment scripts, and improved deployment execution time. Thanks to [Dimitri Lavaury-Collot](https://github.com/Gwada) and [Julien Richard](https://github.com/jujuck).
 
 ## [4.2.0] - 2023-11-30
 
@@ -162,7 +196,7 @@ tables.foo.callSomeCrudMethod();
 
 ### Added
 
-- Git commands for Windows users, to fix issues with different newline formats (see [README.md](README.md#windows-users)).
+- Git commands for Windows users, to fix issues with different newline formats (see [README.md](template/README.md#windows-users)).
 
 ### Changed
 

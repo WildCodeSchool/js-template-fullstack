@@ -1,0 +1,23 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+fileList=$(git diff --staged --name-only :^package-lock.json :^README.md :^client :^server)
+
+echo '----- Checking Root...'
+
+if [ ! -z "$fileList" ]
+then
+  echo "error: Unauthorized modifications\n"
+
+  echo "$fileList\n"
+
+  echo "use 'git restore --staged ...' to fix the problem"
+  echo "(and ask your instructor why you should not change these files)\n"
+
+  exit 1
+fi
+
+echo '----- Done!'
+
+npx validate-branch-name
+npm run lint

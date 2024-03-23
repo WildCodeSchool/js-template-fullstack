@@ -1,0 +1,41 @@
+name: dev
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+    branches:
+      - main
+      - develop
+      - dev
+
+jobs:
+  lint:
+    name: Run linters
+    runs-on: ubuntu-latest
+
+    permissions:
+      checks: write
+      contents: write
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Cache dependencies
+        id: cache-nextjob
+        uses: actions/cache@v3
+        with:
+          path: |
+            ./node_modules
+            ./server/node_modules
+            ./client/node_modules
+          key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
+
+      - name: Install package dependencies
+        if: steps.cache-nextjob.outputs.cache-hit != 'true'
+        run: npm install
+
+      - name: Run linters
+        run: npx lint-staged --diff="origin/${GITHUB_BASE_REF}...origin/${GITHUB_HEAD_REF}"

@@ -1,0 +1,38 @@
+{
+  "name": "{{name}}",
+  "version": "0.0.1",
+  "private": true,
+  "description": "",
+  "homepage": "https://github.com/{{org}}/{{name}}#readme",
+  "bugs": {
+    "url": "https://github.com/{{org}}/{{name}}/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/{{org}}/{{name}}.git"
+  },
+  "workspaces": ["client", "server"],
+  "scripts": {
+    "postinstall": "husky install",
+    "db:migrate": "npm run db:migrate --workspace=server",
+    "db:seed": "npm run db:seed --workspace=server",
+    "dev": "concurrently -c green,yellow -t \"HH:mm:ss\" -p \"{name} {time}\" \"npm:dev:*\"",
+    "dev:client": "npm run dev --workspace=client",
+    "dev:server": "npm run dev --workspace=server",
+    "lint": "lint-staged",
+    "test": "npm run test --workspaces --if-present",
+    "clean": "cross-env-shell \"rm -rf ./client/node_modules ./server/node_modules ./node_modules ./package-lock.json\""
+  },
+  "keywords": [],
+  "author": "{{org}}",
+  "license": "MIT",
+  "devDependencies": {
+    "@commitlint/cli": "^18.6.0",
+    "@commitlint/config-conventional": "^18.6.0",
+    "concurrently": "^8.2.2",
+    "cross-env": "^7.0.3",
+    "husky": "^8.0.3",
+    "validate-branch-name": "^1.3.0",
+    "lint-staged": "^15.2.0"
+  }
+}

@@ -1,0 +1,31 @@
+version: "3.4"
+
+services:
+  web:
+    build: .
+    container_name: ${PROJECT_NAME:-project}-web
+    env_file:
+      - ../envs/.env-${GITHUB_REPOSITORY_NAME}
+    environment:
+      APP_PORT: 3310
+      APP_SECRET: ${APP_SECRET:-123456789}
+      CLIENT_URL: "https://${PROJECT_NAME}.${HOST}"
+      DB_HOST: ${DATABASE_SUBDOMAIN_NAME}-db
+      DB_PORT: 3306
+      DB_USER: ${USER_NAME}
+      DB_PASSWORD: ${USER_PASSWORD}
+      DB_NAME: ${DB_NAME}
+      VITE_BACKEND_URL: ""
+      PROJECT_NAME_SPECIFIC_SAMPLE: ${PROJECT_NAME_SPECIFIC_SAMPLE}
+    networks:
+      - proxy
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=proxy"
+      - "traefik.http.routers.${PROJECT_NAME:-project}-secure.entrypoints=websecure"
+      - "traefik.http.routers.${PROJECT_NAME:-project}-secure.rule=Host(`${PROJECT_NAME:-project}.${HOST:-localhost}`)"
+      - "traefik.http.services.${PROJECT_NAME:-project}.loadbalancer.server.port=3310"
+
+networks:
+  proxy:
+    external: true
